@@ -37,8 +37,3 @@ resource "aws_apprunner_service" "periodic_table_service" {
 
   depends_on = [ var.codebuild_run ]
 }
-
-resource "aws_apprunner_custom_domain_association" "periodic_table_api_domain" {
-  domain_name = var.backend_domain
-  service_arn = aws_apprunner_service.periodic_table_service.arn
-}

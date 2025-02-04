@@ -50,11 +50,21 @@ source                     = "./modules/apprunner"
   apprunner_build_role     = module.iam.apprunner_build_role
   apprunner_execution_role = module.iam.apprunner_execution_role
   ecr_repository_url       = module.ecr.ecr_repository_url
-  codebuild_run            = module.ecr.codebuild_run 
-  backend_domain           = var.backend_domain 
+  codebuild_run            = module.ecr.codebuild_run
   tag                      = local.aws_tag
   env                      = var.env
 }
+
+module "apigw" {
+  source          = "./modules/apigw"
+  frontend_domain = var.frontend_domain
+  backend_domain  = var.backend_domain
+  certificate_arn = var.certificate_arn
+  apprunner_url   = module.apprunner.periodic_table_service_url
+  tag             = local.aws_tag
+  env             = var.env
+}
+
 
 module "cloudfront" {
   source                         = "./modules/cloudfront"

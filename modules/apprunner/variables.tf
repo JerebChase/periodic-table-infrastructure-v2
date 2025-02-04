@@ -18,11 +18,6 @@ variable "codebuild_run" {
   type = string
 }
 
-variable "backend_domain" {
-  description = "The domain for the backend"
-  type = string
-}
-
 variable "tag" {
   description = "The tag to apply to AWS resources"
   type        = string
