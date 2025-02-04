@@ -5,7 +5,7 @@ resource "aws_ecr_repository" "periodic_table_repo" {
   }
 }
 
-resource "aws_codebuild_project" "copy_image_temp_image" {
+resource "aws_codebuild_project" "copy_temp_image" {
   name         = "copy-temp-image-${var.env}"
   service_role = var.codebuild_role
 
@@ -33,4 +33,24 @@ resource "aws_codebuild_project" "copy_image_temp_image" {
   artifacts {
     type = "NO_ARTIFACTS"
   }
+}
+
+resource "aws_cloudwatch_event_rule" "trigger_codebuild" {
+  name        = "trigger-codebuild-${var.env}"
+  description = "Trigger CodeBuild when the project is created"
+
+  event_pattern = jsonencode({
+    source      = ["aws.codebuild"]
+    detail-type = ["CodeBuild Build State Change"]
+    detail = {
+      "build-status" = ["SUCCEEDED"]
+    }
+  })
+}
+
+resource "aws_cloudwatch_event_target" "codebuild_target" {
+  rule      = aws_cloudwatch_event_rule.trigger_codebuild.name
+  target_id = "CodeBuildTarget"
+  arn       = aws_codebuild_project.copy_temp_image.arn
+  role_arn  = var.eventbridge_role
 }

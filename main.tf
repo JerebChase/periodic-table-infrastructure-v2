@@ -39,10 +39,11 @@ module "iam" {
 }
 
 module "ecr" {
-  source         = "./modules/ecr"
-  codebuild_role = module.iam.codebuild_role
-  tag            = local.aws_tag
-  env            = var.env
+  source           = "./modules/ecr"
+  codebuild_role   = module.iam.codebuild_role
+  eventbridge_role = module.iam.eventbridge_role
+  tag              = local.aws_tag
+  env              = var.env
 }
 
 module "apprunner" {
