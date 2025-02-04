@@ -18,12 +18,6 @@ module "rg" {
   env    = var.env
 }
 
-module "ecr" {
-  source = "./modules/ecr"
-  tag    = local.aws_tag
-  env    = var.env
-}
-
 module "s3" {
   source = "./modules/s3"
   tag    = local.aws_tag
@@ -42,6 +36,13 @@ module "iam" {
   tag                   = local.aws_tag
   env                   = var.env
   periodic_table_db_arn = module.db.periodic_table_db_arn
+}
+
+module "ecr" {
+  source         = "./modules/ecr"
+  codebuild_role = module.iam.codebuild_role
+  tag            = local.aws_tag
+  env            = var.env
 }
 
 module "apprunner" {
