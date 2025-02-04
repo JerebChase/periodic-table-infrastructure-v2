@@ -39,6 +39,6 @@ resource "null_resource" "trigger_codebuild" {
   depends_on = [aws_codebuild_project.copy_temp_image]
 
   provisioner "local-exec" {
-    command = "aws codebuild start-build --project-name ${aws_codebuild_project.copy_temp_image.name}"
+    command = "aws codebuild start-build --project-name ${aws_codebuild_project.copy_temp_image.name} --region us-east-1"
   }
 }
