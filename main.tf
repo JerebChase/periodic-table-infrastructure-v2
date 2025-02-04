@@ -49,6 +49,7 @@ module "apprunner" {
 source                   = "./modules/apprunner"
   apprunner_role_arn     = module.iam.apprunner_execution_role
   ecr_repository_url     = module.ecr.ecr_repository_url
+  codebuild_run          = module.ecr.codebuild_run 
   tag                    = local.aws_tag
   env                    = var.env
 }
