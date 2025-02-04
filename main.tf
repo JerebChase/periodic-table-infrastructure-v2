@@ -56,11 +56,11 @@ source                     = "./modules/apprunner"
   env                      = var.env
 }
 
-# module "cloudfront" {
-#   source                         = "./modules/cloudfront"
-#   periodic_table_bucket_endpoint = module.s3.periodic_table_bucket_endpoint
-#   certificate_arn                = var.certificate_arn
-#   frontend_domain                = var.frontend_domain
-#   tag                            = local.aws_tag
-#   env                            = var.env
-# }
+module "cloudfront" {
+  source                         = "./modules/cloudfront"
+  periodic_table_bucket_endpoint = module.s3.periodic_table_bucket_endpoint
+  certificate_arn                = var.certificate_arn
+  frontend_domain                = var.frontend_domain
+  tag                            = local.aws_tag
+  env                            = var.env
+}

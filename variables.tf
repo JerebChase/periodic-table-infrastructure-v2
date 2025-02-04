@@ -9,12 +9,12 @@ variable "backend_domain" {
   type = string
 }
 
-# variable "certificate_arn" {
-#   description = "The ARN of the certificate to use for HTTPS"
-#   type        = string
-# }
+variable "certificate_arn" {
+  description = "The ARN of the certificate to use for HTTPS"
+  type        = string
+}
 
-# variable "frontend_domain" {
-#   description = "The domain for the frontend"
-#   type        = string
-# }
+variable "frontend_domain" {
+  description = "The domain for the frontend"
+  type        = string
+}
