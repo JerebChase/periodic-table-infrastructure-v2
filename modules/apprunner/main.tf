@@ -25,7 +25,7 @@ resource "aws_apprunner_service" "periodic_table_service" {
 
   instance_configuration {
     cpu    = "0.25 vCPU"
-    memory = "512 MB"
+    memory = "512"
   }
 
   auto_scaling_configuration_arn = aws_apprunner_auto_scaling_configuration_version.periodic_table_scaling_config.arn
