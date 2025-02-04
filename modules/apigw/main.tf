@@ -2,7 +2,7 @@ resource "aws_apigatewayv2_api" "periodic_table_api_gateway" {
   name          = "periodic-table-apigw-${var.env}"
   protocol_type = "HTTP"
   cors_configuration {
-    allow_origins = [var.frontend_domain]
+    allow_origins = ["https://${var.frontend_domain}"]
     allow_methods = ["GET", "POST", "OPTIONS"]
     allow_headers = ["Content-Type", "Authorization"]
   }
