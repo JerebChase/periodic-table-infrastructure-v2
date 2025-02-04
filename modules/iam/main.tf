@@ -1,5 +1,5 @@
 resource "aws_iam_role" "apprunner_build_role" {
-  name = "periodic-table-apprunner-execution-role-${var.env}"
+  name = "periodic-table-apprunner-build-role-${var.env}"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
