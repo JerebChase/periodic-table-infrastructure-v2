@@ -24,7 +24,7 @@ resource "aws_apprunner_service" "periodic_table_service" {
   }
 
   instance_configuration {
-    //instance_role_arn = var.apprunner_execution_role
+    instance_role_arn = var.apprunner_execution_role
     cpu    = "0.25 vCPU"
     memory = "512"
   }
