@@ -33,4 +33,6 @@ resource "aws_apprunner_service" "periodic_table_service" {
   tags = {
     env = "${var.tag}"
   }
+
+  depends_on = [ var.codebuild_run ]
 }

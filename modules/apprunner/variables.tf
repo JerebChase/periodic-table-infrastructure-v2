@@ -4,16 +4,21 @@ variable "apprunner_role_arn" {
 }
 
 variable "ecr_repository_url" {
-    description = "The url for the ecr repository"
-    type        = string
+  description = "The url for the ecr repository"
+  type        = string
+}
+
+variable "codebuild_run" {
+  description = "The codebuild run that pushes a temp image to ECR"
+  type = string
 }
 
 variable "tag" {
-    description = "The tag to apply to AWS resources"
-    type        = string
+  description = "The tag to apply to AWS resources"
+  type        = string
 }
 
 variable "env" {
-    description = "The environment"
-    type        = string
+  description = "The environment"
+  type        = string
 }
