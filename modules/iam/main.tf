@@ -90,6 +90,15 @@ resource "aws_iam_policy" "codebuild_ecr_policy" {
           "ecr-public:DescribeRepositories"
         ]
         Resource = "*"
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+        Resource = "*"
       }
     ]
   })
