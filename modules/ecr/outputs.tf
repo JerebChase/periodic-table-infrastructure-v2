@@ -5,5 +5,5 @@ output "ecr_repository_url" {
 
 output "codebuild_run" {
   description = "The codebuild run resource that pushes a temp image to ECR"
-  value       = null_resource.trigger_codebuild 
+  value       = null_resource.trigger_codebuild.id
 }
