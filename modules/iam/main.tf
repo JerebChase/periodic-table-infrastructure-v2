@@ -124,7 +124,7 @@ resource "aws_iam_policy" "eventbridge_codebuild_policy" {
       Action   = [
         "codebuild:StartBuild"
       ]
-      Resource = aws_codebuild_project.copy_image.arn
+      Resource = "*"
     }]
   })
 }
