@@ -17,8 +17,8 @@ resource "aws_codebuild_project" "copy_temp_image" {
         build:
           commands:
             - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${aws_ecr_repository.periodic_table_repo.repository_url}
-            - docker pull public.ecr.aws/nginx/nginx:latest
-            - docker tag public.ecr.aws/nginx/nginx:latest ${aws_ecr_repository.periodic_table_repo.repository_url}:latest
+            - docker pull public.ecr.aws/aws-containers/hello-app-runner:latest
+            - docker tag public.ecr.aws/aws-containers/hello-app-runner:latest ${aws_ecr_repository.periodic_table_repo.repository_url}:latest
             - docker push ${aws_ecr_repository.periodic_table_repo.repository_url}:latest
       EOF
   }
