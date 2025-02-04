@@ -1,6 +1,6 @@
 resource "aws_apprunner_auto_scaling_configuration_version" "periodic_table_scaling_config" {
   auto_scaling_configuration_name = "periodic-table-scaling-config-${var.env}"
-  min_size                        = 0
+  min_size                        = 1
   max_size                        = 5
   max_concurrency                 = 10
 
