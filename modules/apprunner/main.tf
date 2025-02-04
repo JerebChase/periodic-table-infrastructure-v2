@@ -18,7 +18,7 @@ resource "aws_apprunner_service" "periodic_table_service" {
     }
 
     image_repository {
-      image_identifier      = "public.ecr.aws/aws-containers/hello-app-runner:latest"
+      image_identifier      = "${var.ecr_repository_url}:latest"
       image_repository_type = "ECR"
     }
   }
