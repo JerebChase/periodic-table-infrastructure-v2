@@ -14,7 +14,7 @@ resource "aws_apprunner_service" "periodic_table_service" {
 
   source_configuration {
     authentication_configuration {
-      access_role_arn = var.apprunner_role_arn
+      access_role_arn = var.apprunner_build_role
     }
 
     image_repository {
@@ -24,7 +24,7 @@ resource "aws_apprunner_service" "periodic_table_service" {
   }
 
   instance_configuration {
-    instance_role_arn = var.apprunner_role_arn
+    instance_role_arn = var.apprunner_execution_role
     cpu    = "0.25 vCPU"
     memory = "512"
   }

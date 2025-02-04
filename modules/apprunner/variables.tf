@@ -1,4 +1,9 @@
-variable "apprunner_role_arn" {
+variable "apprunner_build_role" {
+  description = "The arn of the apprunner build role"
+  type        = string
+}
+
+variable "apprunner_execution_role" {
   description = "The arn of the apprunner execution role"
   type        = string
 }
