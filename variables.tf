@@ -4,6 +4,11 @@ variable "env" {
   default     = "dev"
 }
 
+variable "backend_domain" {
+  description = "The domain for the backend"
+  type = string
+}
+
 # variable "certificate_arn" {
 #   description = "The ARN of the certificate to use for HTTPS"
 #   type        = string

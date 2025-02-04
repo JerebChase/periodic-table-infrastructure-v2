@@ -51,15 +51,9 @@ source                     = "./modules/apprunner"
   apprunner_execution_role = module.iam.apprunner_execution_role
   ecr_repository_url       = module.ecr.ecr_repository_url
   codebuild_run            = module.ecr.codebuild_run 
+  backend_domain           = var.backend_domain 
   tag                      = local.aws_tag
   env                      = var.env
-}
-
-module "apigw" {
-  source                     = "./modules/apigw"
-  periodic_table_service_url = module.apprunner.periodic_table_service_url
-  tag                        = local.aws_tag
-  env                        = var.env
 }
 
 # module "cloudfront" {
