@@ -35,22 +35,10 @@ resource "aws_codebuild_project" "copy_temp_image" {
   }
 }
 
-resource "aws_cloudwatch_event_rule" "trigger_codebuild" {
-  name        = "trigger-codebuild-${var.env}"
-  description = "Trigger CodeBuild when the project is created"
+resource "null_resource" "trigger_codebuild" {
+  depends_on = [aws_codebuild_project.copy_temp_image]
 
-  event_pattern = jsonencode({
-    source      = ["aws.codebuild"]
-    detail-type = ["CodeBuild Build State Change"]
-    detail = {
-      "build-status" = ["SUCCEEDED"]
-    }
-  })
-}
-
-resource "aws_cloudwatch_event_target" "codebuild_target" {
-  rule      = aws_cloudwatch_event_rule.trigger_codebuild.name
-  target_id = "CodeBuildTarget"
-  arn       = aws_codebuild_project.copy_temp_image.arn
-  role_arn  = var.eventbridge_role
+  provisioner "local-exec" {
+    command = "aws codebuild start-build --project-name ${aws_codebuild_project.copy_temp_image.name}"
+  }
 }

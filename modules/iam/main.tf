@@ -99,37 +99,3 @@ resource "aws_iam_role_policy_attachment" "codebuild_ecr_attach" {
   role       = aws_iam_role.codebuild_role.name
   policy_arn = aws_iam_policy.codebuild_ecr_policy.arn
 }
-
-resource "aws_iam_role" "eventbridge_role" {
-  name = "EventBridgeCodeBuildRole"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Effect = "Allow"
-      Principal = { Service = "events.amazonaws.com" }
-      Action = "sts:AssumeRole"
-    }]
-  })
-}
-
-resource "aws_iam_policy" "eventbridge_codebuild_policy" {
-  name        = "EventBridgeCodeBuildPolicy"
-  description = "Allows EventBridge to start CodeBuild projects"
-  
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Effect   = "Allow"
-      Action   = [
-        "codebuild:StartBuild"
-      ]
-      Resource = "*"
-    }]
-  })
-}
-
-resource "aws_iam_role_policy_attachment" "eventbridge_codebuild_attach" {
-  role       = aws_iam_role.eventbridge_role.name
-  policy_arn = aws_iam_policy.eventbridge_codebuild_policy.arn
-}
