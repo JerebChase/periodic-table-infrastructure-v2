@@ -56,17 +56,6 @@ source                     = "./modules/apprunner"
   env                      = var.env
 }
 
-# module "apigw" {
-#   source          = "./modules/apigw"
-#   frontend_domain = var.frontend_domain
-#   backend_domain  = var.backend_domain
-#   certificate_arn = var.certificate_arn
-#   apprunner_url   = module.apprunner.periodic_table_service_url
-#   tag             = local.aws_tag
-#   env             = var.env
-# }
-
-
 module "cloudfront" {
   source                         = "./modules/cloudfront"
   periodic_table_bucket_endpoint = module.s3.periodic_table_bucket_endpoint
