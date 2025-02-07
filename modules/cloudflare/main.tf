@@ -7,12 +7,15 @@ terraform {
 }
 
 resource "cloudflare_dns_record" "certificate_record" {
-  for_each = var.certificate_validation_records
+  for_each = {
+    for record in var.certificate_validation_records :
+    record.name => record
+  }
 
   zone_id  = var.zone_id
   name     = each.value.name
   content  = each.value.value
-  type     = "CNAME"
+  type     = each.value.type
   ttl      = 300
   comment  = "Validation record for app runner custom domain"
 }
