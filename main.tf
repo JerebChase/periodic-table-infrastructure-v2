@@ -60,6 +60,7 @@ source                     = "./modules/apprunner"
   ecr_repository_url       = module.ecr.ecr_repository_url
   backend_domain           = var.backend_domain 
   codebuild_run            = module.ecr.codebuild_run
+  zone_id                  = var.zone_id
   tag                      = local.aws_tag
   env                      = var.env
 }
@@ -69,6 +70,7 @@ module "cloudfront" {
   periodic_table_bucket_endpoint = module.s3.periodic_table_bucket_endpoint
   certificate_arn                = var.certificate_arn
   frontend_domain                = var.frontend_domain
+  zone_id                        = var.zone_id
   tag                            = local.aws_tag
   env                            = var.env
 }
