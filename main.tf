@@ -82,4 +82,6 @@ module "cloudflare" {
   frontend_domain_target         = module.cloudfront.frontend_domain_target
   frontend_domain                = var.frontend_domain
   env                            = var.env
+
+  depends_on = [ module.apprunner, module.cloudfront ]
 }
