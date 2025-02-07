@@ -2,6 +2,12 @@ terraform {
   cloud {
     organization = "jeremy-chase-brown"
   }
+  required_providers {
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 5"
+    }
+  }
 }
 
 locals {
@@ -11,6 +17,8 @@ locals {
 provider "aws" {
   region = "us-east-1"
 }
+
+provider "cloudflare" { }
 
 module "rg" {
   source = "./modules/rg"
@@ -62,5 +70,16 @@ module "cloudfront" {
   certificate_arn                = var.certificate_arn
   frontend_domain                = var.frontend_domain
   tag                            = local.aws_tag
+  env                            = var.env
+}
+
+module "cloudflare" {
+  source                         = "./modules/cloudflare"
+  zone_id                        = var.zone_id
+  certificate_validation_records = module.apprunner.certificate_validation_records
+  backend_domain_target          = module.apprunner.backend_domain_target
+  backend_domain                 = var.backend_domain
+  frontend_domain_target         = module.cloudfront.frontend_domain_target
+  frontend_domain                = var.frontend_domain
   env                            = var.env
 }
