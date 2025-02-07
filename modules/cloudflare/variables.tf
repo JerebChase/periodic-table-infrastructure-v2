@@ -10,6 +10,7 @@ variable "certificate_validation_records" {
     value = string
     type  = string
   }))
+  default     = []
 }
 
 variable "backend_domain_target" {

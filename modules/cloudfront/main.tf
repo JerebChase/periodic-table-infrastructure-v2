@@ -1,11 +1,3 @@
-terraform {
-  required_providers {
-    cloudflare = {
-      source = "cloudflare/cloudflare"
-    }
-  }
-}
-
 resource "aws_cloudfront_distribution" "website_distribution" {
   origin {
     domain_name              = var.periodic_table_bucket_endpoint
@@ -61,12 +53,4 @@ resource "aws_cloudfront_distribution" "website_distribution" {
   tags = {
     env = "${var.tag}"
   }
-}
-
-resource "cloudflare_dns_record" "frontend_domain_record" {
-  zone_id = var.zone_id
-  name    = var.frontend_domain
-  content = aws_cloudfront_distribution.website_distribution.domain_name
-  type    = "CNAME"
-  ttl     = 300
 }

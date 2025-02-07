@@ -60,7 +60,6 @@ source                     = "./modules/apprunner"
   ecr_repository_url       = module.ecr.ecr_repository_url
   backend_domain           = var.backend_domain 
   codebuild_run            = module.ecr.codebuild_run
-  zone_id                  = var.zone_id
   tag                      = local.aws_tag
   env                      = var.env
 }
@@ -70,20 +69,19 @@ module "cloudfront" {
   periodic_table_bucket_endpoint = module.s3.periodic_table_bucket_endpoint
   certificate_arn                = var.certificate_arn
   frontend_domain                = var.frontend_domain
-  zone_id                        = var.zone_id
   tag                            = local.aws_tag
   env                            = var.env
 }
 
-# module "cloudflare" {
-#   source                         = "./modules/cloudflare"
-#   zone_id                        = var.zone_id
-#   certificate_validation_records = module.apprunner.certificate_validation_records
-#   backend_domain_target          = module.apprunner.backend_domain_target
-#   backend_domain                 = var.backend_domain
-#   frontend_domain_target         = module.cloudfront.frontend_domain_target
-#   frontend_domain                = var.frontend_domain
-#   env                            = var.env
+module "cloudflare" {
+  source                         = "./modules/cloudflare"
+  zone_id                        = var.zone_id
+  certificate_validation_records = module.apprunner.certificate_validation_records
+  backend_domain_target          = module.apprunner.backend_domain_target
+  backend_domain                 = var.backend_domain
+  frontend_domain_target         = module.cloudfront.frontend_domain_target
+  frontend_domain                = var.frontend_domain
+  env                            = var.env
 
-#   depends_on = [ module.apprunner, module.cloudfront ]
-# }
+  depends_on = [ module.apprunner, module.cloudfront ]
+}

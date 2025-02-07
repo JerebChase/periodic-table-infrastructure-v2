@@ -22,11 +22,6 @@ variable "backend_domain" {
   description = "The domain for the backend"
   type = string
 }
-
-variable "zone_id" {
-  description = "The id of the cloudflare zone"
-  type        = string
-}
  
 variable "tag" {
   description = "The tag to apply to AWS resources"
