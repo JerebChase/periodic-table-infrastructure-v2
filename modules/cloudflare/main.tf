@@ -12,12 +12,12 @@ resource "cloudflare_dns_record" "certificate_record" {
     record.name => record
   }
 
-  zone_id     = var.zone_id
-  name        = each.value.name
-  content     = each.value.value
-  type        = "CNAME"
-  ttl         = 300
-  description = "Validation record for app runner custom domain"
+  zone_id = var.zone_id
+  name    = each.value.name
+  content = each.value.value
+  type    = "CNAME"
+  ttl     = 300
+  comment = "Validation record for app runner custom domain"
 }
 
 resource "cloudflare_dns_record" "backend_domain_record" {
