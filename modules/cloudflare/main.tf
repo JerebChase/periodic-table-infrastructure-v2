@@ -7,11 +7,11 @@ terraform {
 }
 
 resource "cloudflare_dns_record" "certificate_record" {
-  count   = length(var.certificate_validation_records)
+  count   = length(toList(var.certificate_validation_records))
 
   zone_id = var.zone_id
-  name    = var.certificate_validation_records[count.index].name
-  content = var.certificate_validation_records[count.index].value
+  name    = toList(var.certificate_validation_records)[count.index].name
+  content = toList(var.certificate_validation_records)[count.index].value
   type    = "CNAME"
   ttl     = 300
   comment = "Validation record for app runner custom domain"
