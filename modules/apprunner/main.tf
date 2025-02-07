@@ -53,7 +53,7 @@ resource "aws_apprunner_custom_domain_association" "periodic_table_api_domain" {
 
 resource "cloudflare_dns_record" "certificate_record" {
   for_each = {
-    for record in flatten(aws_apprunner_custom_domain_association.periodic_table_api_domain.certificate_validation_records) :
+    for record in try(aws_apprunner_custom_domain_association.periodic_table_api_domain.certificate_validation_records, []) :
     record.name => record
   }
 
