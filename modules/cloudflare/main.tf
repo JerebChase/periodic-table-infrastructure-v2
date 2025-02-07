@@ -7,14 +7,14 @@ terraform {
 }
 
 resource "cloudflare_dns_record" "certificate_record" {
-  count   = length(tolist(var.certificate_validation_records))
+  for_each = var.certificate_validation_records
 
-  zone_id = var.zone_id
-  name    = tolist(var.certificate_validation_records)[count.index].name
-  content = tolist(var.certificate_validation_records)[count.index].value
-  type    = "CNAME"
-  ttl     = 300
-  comment = "Validation record for app runner custom domain"
+  zone_id  = var.zone_id
+  name     = each.value.name
+  content  = each.value.value
+  type     = "CNAME"
+  ttl      = 300
+  comment  = "Validation record for app runner custom domain"
 }
 
 resource "cloudflare_dns_record" "backend_domain_record" {
