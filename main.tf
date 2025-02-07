@@ -73,15 +73,15 @@ module "cloudfront" {
   env                            = var.env
 }
 
-# module "cloudflare" {
-#   source                         = "./modules/cloudflare"
-#   zone_id                        = var.zone_id
-#   certificate_validation_records = module.apprunner.certificate_validation_records
-#   backend_domain_target          = module.apprunner.backend_domain_target
-#   backend_domain                 = var.backend_domain
-#   frontend_domain_target         = module.cloudfront.frontend_domain_target
-#   frontend_domain                = var.frontend_domain
-#   env                            = var.env
+module "cloudflare" {
+  source                         = "./modules/cloudflare"
+  zone_id                        = var.zone_id
+  certificate_validation_records = module.apprunner.certificate_validation_records
+  backend_domain_target          = module.apprunner.backend_domain_target
+  backend_domain                 = var.backend_domain
+  frontend_domain_target         = module.cloudfront.frontend_domain_target
+  frontend_domain                = var.frontend_domain
+  env                            = var.env
 
-#   depends_on = [ module.apprunner, module.cloudfront ]
-# }
+  depends_on = [ module.apprunner, module.cloudfront ]
+}
