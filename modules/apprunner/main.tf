@@ -65,7 +65,7 @@ locals {
 
 resource "cloudflare_dns_record" "certificate_record" {
   for_each = {
-    for record in local.local.certificate_validation_records :
+    for record in local.certificate_validation_records :
     record.name => record
   }
 
