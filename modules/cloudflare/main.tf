@@ -7,10 +7,10 @@ terraform {
 }
 
 resource "cloudflare_dns_record" "certificate_record" {
-  for_each = {
+  for_each = var.certificate_validation_records != null ? {
     for record in var.certificate_validation_records :
     record.name => record
-  }
+  } : {}
 
   zone_id = var.zone_id
   name    = each.value.name
