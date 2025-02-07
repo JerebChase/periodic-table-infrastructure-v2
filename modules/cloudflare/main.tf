@@ -6,11 +6,15 @@ terraform {
   }
 }
 
-resource "cloudflare_dns_record" "certificate_record" {
-  for_each = var.certificate_validation_records != null ? {
+locals {
+  certificate_validation_map = {
     for record in var.certificate_validation_records :
     record.name => record
-  } : {}
+  }
+}
+
+resource "cloudflare_dns_record" "certificate_record" {
+  for_each = local.certificate_validation_map
 
   zone_id = var.zone_id
   name    = each.value.name
