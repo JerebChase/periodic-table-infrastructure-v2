@@ -6,19 +6,12 @@ terraform {
   }
 }
 
-locals {
-  certificate_validation_map = {
-    for record in var.certificate_validation_records :
-    record.name => record
-  }
-}
-
 resource "cloudflare_dns_record" "certificate_record" {
-  for_each = local.certificate_validation_map
+  count   = length(var.certificate_validation_records)
 
   zone_id = var.zone_id
-  name    = each.value.name
-  content = each.value.value
+  name    = var.certificate_validation_records[count.index].name
+  content = var.certificate_validation_records[count.index].value
   type    = "CNAME"
   ttl     = 300
   comment = "Validation record for app runner custom domain"
