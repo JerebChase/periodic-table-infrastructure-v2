@@ -52,15 +52,12 @@ resource "aws_apprunner_custom_domain_association" "periodic_table_api_domain" {
 }
 
 resource "cloudflare_dns_record" "certificate_record" {
-  for_each = {
-    for record in try(aws_apprunner_custom_domain_association.periodic_table_api_domain.certificate_validation_records, []) :
-    record.name => record
-  }
+  count = length(try(aws_apprunner_custom_domain_association.periodic_table_api_domain.certificate_validation_records, []))
 
   zone_id  = var.zone_id
-  name     = each.value.name
-  content  = each.value.value
-  type     = each.value.type
+  name     = aws_apprunner_custom_domain_association.periodic_table_api_domain.certificate_validation_records[count.index].name
+  content  = aws_apprunner_custom_domain_association.periodic_table_api_domain.certificate_validation_records[count.index].value
+  type     = aws_apprunner_custom_domain_association.periodic_table_api_domain.certificate_validation_records[count.index].type
   ttl      = 300
   comment  = "Validation record for app runner custom domain"
 }
