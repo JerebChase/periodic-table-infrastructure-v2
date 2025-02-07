@@ -5,12 +5,7 @@ variable "zone_id" {
 
 variable "certificate_validation_records" {
   description = "The list of certificate validation records for the app runner custom domain"
-  type        = list(object({
-    name  = string
-    value = string
-    type  = string
-  }))
-  default     = []
+  type        = list
 }
 
 variable "backend_domain_target" {
