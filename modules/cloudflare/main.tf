@@ -22,8 +22,8 @@ resource "cloudflare_dns_record" "certificate_record" {
 resource "cloudflare_dns_record" "backend_domain_record" {
   zone_id = var.zone_id
   name    = var.backend_domain
-  value   = var.backend_domain_target
-  content = "CNAME"
+  content = var.backend_domain_target
+  type    = "CNAME"
   ttl     = 300
 }
 
