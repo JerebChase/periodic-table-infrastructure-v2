@@ -55,7 +55,10 @@ resource "null_resource" "wait_for_validation" {
   depends_on = [aws_apprunner_custom_domain_association.periodic_table_api_domain]
 
   triggers = {
-    certificate_validation_records = join(",", aws_apprunner_custom_domain_association.periodic_table_api_domain.certificate_validation_records)
+    certificate_validation_records = join(",", [
+      for record in aws_apprunner_custom_domain_association.periodic_table_api_domain.certificate_validation_records :
+      record.name
+    ])
   }
 }
 
