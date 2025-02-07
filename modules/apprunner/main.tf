@@ -51,24 +51,9 @@ resource "aws_apprunner_custom_domain_association" "periodic_table_api_domain" {
   service_arn = aws_apprunner_service.periodic_table_service.arn
 }
 
-resource "null_resource" "wait_for_validation" {
-  depends_on = [aws_apprunner_custom_domain_association.periodic_table_api_domain]
-
-  triggers = {
-    certificate_validation_records = join(",", [
-      for record in aws_apprunner_custom_domain_association.periodic_table_api_domain.certificate_validation_records :
-      record.name
-    ])
-  }
-}
-
-locals {
-  certificate_validation_records = aws_apprunner_custom_domain_association.periodic_table_api_domain.certificate_validation_records
-}
-
 resource "cloudflare_dns_record" "certificate_record" {
   for_each = {
-    for record in local.certificate_validation_records :
+    for record in flatten(aws_apprunner_custom_domain_association.periodic_table_api_domain.certificate_validation_records) :
     record.name => record
   }
 
@@ -78,8 +63,6 @@ resource "cloudflare_dns_record" "certificate_record" {
   type     = each.value.type
   ttl      = 300
   comment  = "Validation record for app runner custom domain"
-
-  depends_on = [ null_resource.wait_for_validation ]
 }
 
 resource "cloudflare_dns_record" "backend_domain_record" {
