@@ -32,12 +32,12 @@ module "s3" {
   env    = var.env
 }
 
-# module "db" {
-#   source                   = "./modules/db"
-#   tag                      = local.aws_tag
-#   env                      = var.env
-#   periodic_table_s3_bucket = module.s3.periodic_table_s3_bucket
-# }
+module "db" {
+  source                   = "./modules/db"
+  tag                      = local.aws_tag
+  env                      = var.env
+  periodic_table_s3_bucket = module.s3.periodic_table_s3_bucket
+}
 
 module "iam" {
   source                = "./modules/iam"
