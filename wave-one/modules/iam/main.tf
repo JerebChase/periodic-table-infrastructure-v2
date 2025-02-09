@@ -66,7 +66,7 @@ resource "aws_iam_role_policy_attachment" "dynamodb_access_policy" {
 }
 
 resource "aws_iam_role" "codebuild_role" {
-  name = "CodeBuildECRRole"
+  name = "periodic-table-codebuild-role-${var.env}"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -79,7 +79,7 @@ resource "aws_iam_role" "codebuild_role" {
 }
 
 resource "aws_iam_policy" "codebuild_ecr_policy" {
-  name        = "CodeBuildECRPolicy"
+  name        = "periodic-table-codebuild-policy-${var.env}"
   description = "Allows CodeBuild to access ECR"
   
   policy = jsonencode({
