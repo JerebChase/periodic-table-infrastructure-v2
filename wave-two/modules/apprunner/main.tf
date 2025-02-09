@@ -20,6 +20,9 @@ resource "aws_apprunner_service" "periodic_table_service" {
     image_repository {
       image_identifier      = "${var.ecr_repository_url}:latest"
       image_repository_type = "ECR"
+      image_configuration {
+        port = 8080
+      }
     }
   }
 
