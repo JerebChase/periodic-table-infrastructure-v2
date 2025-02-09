@@ -1,5 +1,5 @@
 output "apprunner_build_role" {
-    description = "The arn of the apprunner execution role"
+    description = "The arn of the apprunner build role"
     value       = aws_iam_role.apprunner_build_role.arn
 }
 

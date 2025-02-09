@@ -13,11 +13,6 @@ variable "ecr_repository_url" {
   type        = string
 }
 
-variable "codebuild_run" {
-  description = "The codebuild run that pushes a temp image to ECR"
-  type = string
-}
-
 variable "backend_domain" {
   description = "The domain for the backend"
   type = string

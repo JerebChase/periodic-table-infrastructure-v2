@@ -4,16 +4,6 @@ variable "env" {
   default     = "dev"
 }
 
-variable "zone_id" {
-  description = "The id of the cloudflare zone"
-  type        = string
-}
-
-variable "backend_domain" {
-  description = "The domain for the backend"
-  type = string
-}
-
 variable "certificate_arn" {
   description = "The ARN of the certificate to use for HTTPS"
   type        = string
